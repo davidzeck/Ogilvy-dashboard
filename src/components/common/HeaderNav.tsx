@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export interface HeaderNavItem {
@@ -13,23 +14,38 @@ interface HeaderNavProps {
 
 /**
  * HeaderNav - Top navigation tabs in the header
+ * Enhanced with Framer Motion animations and refined styling
  */
 export const HeaderNav: React.FC<HeaderNavProps> = ({ items }) => {
   return (
     <nav className="flex items-center gap-1">
       {items.map((item, index) => (
-        <button
+        <motion.button
           key={index}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.05 }}
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.95 }}
           onClick={item.onClick}
           className={cn(
-            "px-4 py-2 text-sm font-medium rounded-md transition-colors",
+            "relative px-4 py-2 text-sm font-medium rounded-md transition-all duration-200",
             item.isActive
-              ? "bg-blue-50 text-blue-700 hover:bg-blue-100"
-              : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+              ? "text-slate-900 font-semibold"
+              : "text-slate-600 hover:text-slate-900"
           )}
         >
           {item.label}
-        </button>
+          
+          {/* Active indicator underline */}
+          {item.isActive && (
+            <motion.div
+              layoutId="headerActiveIndicator"
+              className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
+              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+            />
+          )}
+        </motion.button>
       ))}
     </nav>
   );
@@ -37,20 +53,20 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ items }) => {
 
 /**
  * Default header navigation items
+ * Updated to match screenshot: Dashboard, Leads, Reports, Settings
  */
 export const defaultHeaderNavItems: HeaderNavItem[] = [
   {
-    label: 'Lead Management',
+    label: 'Dashboard',
     isActive: true,
   },
   {
-    label: 'Marketing Automation',
+    label: 'Leads',
   },
   {
-    label: 'Campaigns',
+    label: 'Reports',
   },
   {
-    label: 'Studio',
+    label: 'Settings',
   },
 ];
-
