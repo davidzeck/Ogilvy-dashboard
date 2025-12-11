@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from '@/components/common/Sidebar';
 import { Header } from '@/components/common/Header';
 
@@ -8,23 +8,34 @@ interface DashboardLayoutProps {
 
 /**
  * DashboardLayout - Main layout component that combines Sidebar, Header, and Content
- * Follows the structure from the dashboard image:
- * - Fixed left sidebar (64 units wide)
- * - Fixed top header (starts after sidebar)
- * - Main content area (with padding to account for sidebar and header)
+ * Responsive design:
+ * - Desktop: Fixed left sidebar (64 units wide)
+ * - Mobile/Tablet: Hidden sidebar with toggle menu
+ * - Fixed top header (responsive positioning)
+ * - Main content area (with responsive padding)
  */
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Sidebar - Fixed on the left */}
-      <Sidebar />
+      {/* Sidebar - Responsive */}
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      {/* Header - Fixed at top, starts after sidebar */}
-      <Header />
+      {/* Header - Responsive */}
+      <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
 
-      {/* Main Content Area - Offset by sidebar width and header height */}
-      <main className="ml-64 mt-16 min-h-[calc(100vh-4rem)]">
-        <div className="p-6">
+      {/* Overlay for mobile sidebar */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Main Content Area - Responsive offset */}
+      <main className="lg:ml-64 mt-14 md:mt-16 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)]">
+        <div className="p-0">
           {children}
         </div>
       </main>

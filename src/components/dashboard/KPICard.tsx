@@ -46,13 +46,13 @@ export const KPICard = ({ kpi, icon, index = 0 }: KPICardProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.3 }}
-      className=" p-6 hover:shadow-md transition-shadow"
+      className="p-4 md:p-6 hover:shadow-md transition-shadow"
     >
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3 md:gap-4">
         {/* Icon Circle */}
         <div
           className={cn(
-            'flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0',
+            'flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0',
             iconColors[kpi.id] || 'bg-gray-100'
           )}
         >
@@ -63,20 +63,20 @@ export const KPICard = ({ kpi, icon, index = 0 }: KPICardProps) => {
         <div className="flex-1 min-w-0">
           {/* Value */}
           <div className="flex items-baseline gap-2 mb-1">
-            <h3 className="text-2xl font-bold text-gray-900">{kpi.value}</h3>
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 truncate">{kpi.value}</h3>
             {kpi.change !== undefined && kpi.change !== 0 && (
-              <span className={cn('flex items-center gap-0.5 text-sm font-semibold', getChangeColor())}>
+              <span className={cn('flex items-center gap-0.5 text-xs md:text-sm font-semibold flex-shrink-0', getChangeColor())}>
                 {getChangeIcon()}
               </span>
             )}
           </div>
 
           {/* Label */}
-          <p className="text-sm text-gray-600 font-medium mb-2">{kpi.label}</p>
+          <p className="text-xs md:text-sm text-gray-600 font-medium mb-1 md:mb-2">{kpi.label}</p>
 
           {/* Change Period */}
           {kpi.changePeriod && (
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-gray-400 leading-tight">
               {kpi.change !== 0 ? (
                 <>
                   {kpi.changeType === 'increase' ? 'Was' : 'Was'}{' '}

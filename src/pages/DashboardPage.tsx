@@ -75,12 +75,12 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 p-2 md:p-4 lg:p-6">
       {/* Filter Bar */}
       <FilterBar />
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-2 rounded-lg">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 bg-white p-2 md:p-3 rounded-lg">
         {kpis.map((kpi, index) => (
           <KPICard key={kpi.id} kpi={kpi} icon={kpiIcons[kpi.id]} index={index} />
         ))}
@@ -98,7 +98,7 @@ export default function DashboardPage() {
       )}
 
       {/* Charts Row 1: Leads & Lead Status */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 bg-white rounded-lg p-2 md:p-4">
         <div className="lg:col-span-2">
           <LeadsByBranchChart data={leadsByBranch} />
         </div>
@@ -108,21 +108,21 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts Row 2: Revenue */}
-      <div className='grid grid-cols-7 gap-4 bg-white rounded-lg p-2'>
-        <div className='col-span-5'>
-         <RevenueByBranchChart data={revenueByBranch} />
+      <div className="grid grid-cols-1 xl:grid-cols-7 gap-4 lg:gap-6 bg-white rounded-lg p-2 md:p-4">
+        <div className="xl:col-span-5">
+          <RevenueByBranchChart data={revenueByBranch} />
         </div>
-        <div className='col-span-2'> 
+        <div className="xl:col-span-2">
           <BranchAgentRankingTable data={branchAgentRanking} limit={6} />
         </div>
       </div>
 
       {/* Charts Row 3: Agent Performance & Tables */}
-      <div className='grid grid-cols-7 gap-4 bg-white rounded-lg p-2'>
-        <div className='col-span-5'>
+      <div className="grid grid-cols-1 xl:grid-cols-7 gap-4 lg:gap-6 bg-white rounded-lg p-2 md:p-4">
+        <div className="xl:col-span-5">
           <AgentPerformanceChart data={agentPerformance} />
         </div>
-        <div className='col-span-2'> 
+        <div className="xl:col-span-2">
           <TopPerformingAgentsTable data={topPerformingAgents} limit={6} />
         </div>
       </div>

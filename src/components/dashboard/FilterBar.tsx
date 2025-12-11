@@ -71,13 +71,13 @@ export const FilterBar = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
+    <div className="bg-white rounded-xl shadow-sm p-3 md:p-6">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 md:gap-4">
         {loadingOptions && (
           <div className="w-full text-sm text-gray-500 mb-2">Loading filter options...</div>
         )}
         {/* Date Range Picker */}
-        <div className="relative min-w-[180px]">
+        <div className="relative w-full sm:w-auto sm:min-w-[180px] sm:flex-1 lg:flex-none">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
             <Calendar className="w-4 h-4 text-gray-400" />
           </div>
@@ -142,12 +142,12 @@ export const FilterBar = () => {
         <button
           onClick={applyFilters}
           className={cn(
-            'px-6 py-2.5 rounded-full',
+            'w-full sm:w-auto px-6 py-2.5 rounded-full',
             'bg-blue-600 hover:bg-blue-700',
             'text-white text-sm font-medium',
             'transition-colors',
             'shadow-sm hover:shadow-md',
-            '' // Push to the right
+            'sm:ml-auto' // Push to the right on larger screens
           )}
         >
           Apply Filter
@@ -166,7 +166,7 @@ interface FilterSelectProps {
 
 const FilterSelect = ({ value, onChange, options }: FilterSelectProps) => {
   return (
-    <div className="relative min-w-[160px]">
+    <div className="relative w-full sm:w-auto sm:min-w-[160px] sm:flex-1 lg:flex-none">
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}

@@ -14,11 +14,12 @@ interface HeaderNavProps {
 
 /**
  * HeaderNav - Top navigation tabs in the header
+ * Responsive design with horizontal scrolling on mobile
  * Enhanced with Framer Motion animations and refined styling
  */
 export const HeaderNav: React.FC<HeaderNavProps> = ({ items }) => {
   return (
-    <nav className="flex items-center gap-1">
+    <nav className="flex items-center gap-1 overflow-x-auto scrollbar-hide max-w-[calc(100vw-16rem)] lg:max-w-none">
       {items.map((item, index) => (
         <motion.button
           key={index}
@@ -29,14 +30,14 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ items }) => {
           whileTap={{ scale: 0.95 }}
           onClick={item.onClick}
           className={cn(
-            "relative px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 bg-transparent border-none focus-none",
+            "relative px-3 md:px-4 py-2 text-xs md:text-sm font-medium rounded-md transition-all duration-200 bg-transparent border-none focus-none whitespace-nowrap flex-shrink-0",
             item.isActive
               ? "text-slate-900 font-semibold"
               : "text-slate-600 hover:text-slate-900"
           )}
         >
           {item.label}
-          
+
           {/* Active indicator underline */}
           {item.isActive && (
             <motion.div

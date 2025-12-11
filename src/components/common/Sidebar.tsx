@@ -1,27 +1,34 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { SidebarNav, defaultNavItems, type NavItem } from './SidebarNav';
 import { SidebarLogo } from './SidebarLogo';
 import { SidebarTopLogo } from './SidebarTopLogo';
 
 interface SidebarProps {
   navItems?: NavItem[];
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 /**
  * Sidebar - Main sidebar component for the dashboard
+ * Responsive with mobile drawer support
  * Enhanced with Framer Motion and pixel-perfect styling
  * Contains logo at top, navigation items, and decorative logo at bottom
  */
-export const Sidebar: React.FC<SidebarProps> = ({ 
-  navItems = defaultNavItems 
+export const Sidebar: React.FC<SidebarProps> = ({
+  navItems = defaultNavItems,
+  isOpen = false,
+  onClose
 }) => {
+  // Use CSS to handle responsive behavior
   return (
-    <motion.aside
-      initial={{ x: -100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-200 flex flex-col shadow-sm"
+    <aside
+      className={`
+        fixed left-0 top-0 h-screen w-64 bg-white border-r border-slate-200
+        flex flex-col shadow-sm z-30 transition-transform duration-300 ease-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        lg:translate-x-0
+      `}
     >
       {/* Top Logo Section */}
       <SidebarTopLogo />
@@ -30,15 +37,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
         <SidebarNav items={navItems} />
       </div>
-      
+
       {/* Decorative Logo at bottom */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.3 }}
-      >
+      <div className="animate-fade-in">
         <SidebarLogo />
-      </motion.div>
-    </motion.aside>
+      </div>
+    </aside>
   );
 };
