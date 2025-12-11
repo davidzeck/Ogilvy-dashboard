@@ -15,7 +15,7 @@ export const AgentPerformanceChart = ({ data }: AgentPerformanceChartProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.2 }}
-      className="bg-white rounded-lg shadow-sm p-6"
+      className=" p-6"
     >
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gray-900">Agent Performance</h3>
@@ -29,7 +29,7 @@ export const AgentPerformanceChart = ({ data }: AgentPerformanceChartProps) => {
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
           <XAxis
             dataKey="agentName"
-            tick={{ fill: '#6b7280', fontSize: 11 }}
+            tick={{ fill: '#6b7280', fontSize: 10 }}
             tickLine={false}
             axisLine={{ stroke: '#e5e7eb' }}
             angle={-45}
@@ -74,7 +74,7 @@ export const AgentPerformanceChart = ({ data }: AgentPerformanceChartProps) => {
               return null;
             }}
           />
-          <Bar dataKey="revenue" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+          <Bar dataKey="revenue" fill="#66b2b2" radius={[8, 8, 0, 0]} barSize={10}/>
         </BarChart>
       </ResponsiveContainer>
     </motion.div>

@@ -11,7 +11,7 @@ export const SidebarTopLogo: React.FC = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-gradient-to-br from-blue-600 to-blue-700 px-6 py-5"
+      className="bg-gradient-to-br from-blue-600 to-blue-700 px-6 py-3"
     >
       <div className="flex items-center gap-3">
         {/* Logo Circle with Dot */}

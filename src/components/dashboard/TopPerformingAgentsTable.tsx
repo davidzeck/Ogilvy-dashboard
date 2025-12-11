@@ -15,7 +15,7 @@ export const TopPerformingAgentsTable = ({ data, limit = 10 }: TopPerformingAgen
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.3 }}
-      className="bg-white rounded-lg shadow-sm overflow-hidden"
+      className="overflow-hidden"
     >
       <div className="px-6 py-4 border-b border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900">Top Performing Agents</h3>

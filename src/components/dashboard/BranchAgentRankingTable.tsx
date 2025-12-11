@@ -15,14 +15,14 @@ export const BranchAgentRankingTable = ({ data, limit = 10 }: BranchAgentRanking
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.25 }}
-      className="bg-white rounded-lg shadow-sm overflow-hidden"
+      className="border-l overflow-hidden w-full flex-1"
     >
       <div className="px-6 py-4 border-b border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900">Branch Agent Ranking</h3>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full">
+      <div className="w-full flex-1">
+        <table className="w-full flex-1">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

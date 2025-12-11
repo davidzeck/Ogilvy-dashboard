@@ -17,7 +17,7 @@ export const LeadStatusDonut = ({ data, totalLeads }: LeadStatusDonutProps) => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4 }}
-      className="bg-white rounded-lg shadow-sm p-6"
+      className="bg-transparent  p-6"
     >
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">Lead Status</h3>

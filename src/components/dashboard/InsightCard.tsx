@@ -17,26 +17,26 @@ interface InsightCardProps {
 export const InsightCard = ({ insight, ranking, variant = 'blue', index = 0, onViewAll }: InsightCardProps) => {
   const gradientClass =
     variant === 'blue'
-      ? 'bg-gradient-to-r from-blue-600 to-blue-700'
-      : 'bg-gradient-to-r from-purple-600 to-purple-700';
+      ? ''
+      : '';
 
   return (
     <motion.div
       initial={{ opacity: 0, x: variant === 'blue' ? -20 : 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
-      className={cn('rounded-lg p-6 text-white relative overflow-hidden', gradientClass)}
+      className={cn('rounded-lg p-6 relative overflow-hidden', gradientClass)}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10">
+      {/* <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-32 translate-x-32" />
-      </div>
+      </div> */}
       
 
-      <div className="relative z-10 flex justify-between items-start h-full">
-        <div className="flex-1">
-          <h3 className="text-xl font-bold mb-2">{insight.title}</h3>
-          <p className="text-white/90 text-sm leading-relaxed mb-4">{insight.description}</p>
+      <div className="relative z-10 flex justify-between items-start h-full text-white">
+        <div className="flex-1 flex flex-col gap-3 space-y-2">
+          <h3 className="text-md font-bold">{insight.title}</h3>
+          <p className=" text-xs leading-relaxed">{insight.description}</p>
           {onViewAll && (
             <button
               onClick={onViewAll}
@@ -48,7 +48,7 @@ export const InsightCard = ({ insight, ranking, variant = 'blue', index = 0, onV
           )}
         </div>
 
-        {ranking && (
+        {/* {ranking && (
           <div className="ml-6 text-center">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -60,7 +60,7 @@ export const InsightCard = ({ insight, ranking, variant = 'blue', index = 0, onV
               <div className="text-xs text-white/80 mt-1">{ranking.label}</div>
             </motion.div>
           </div>
-        )}
+        )} */}
       </div>
     </motion.div>
   );

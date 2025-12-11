@@ -27,14 +27,14 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Left Section: Logo and Navigation */}
         <div className="flex items-center gap-8">
           {/* Optimus Logo */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-xl font-bold text-slate-900 tracking-tight"
           >
             optimus
-          </motion.div>
+          </motion.div> */}
           
           {/* Navigation Tabs */}
           <HeaderNav items={navItems} />

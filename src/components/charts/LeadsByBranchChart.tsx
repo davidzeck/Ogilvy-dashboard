@@ -12,7 +12,7 @@ export const LeadsByBranchChart = ({ data }: LeadsByBranchChartProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white rounded-lg shadow-sm p-6"
+      className="bg-transparent p-6"
     >
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gray-900">Leads By Branch</h3>

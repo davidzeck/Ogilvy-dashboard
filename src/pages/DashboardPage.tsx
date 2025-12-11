@@ -88,7 +88,7 @@ export default function DashboardPage() {
 
       {/* Actionable Insights Cards */}
       {actionableInsights.length > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 bg-gradient-to-r from-blue-700 to-purple-500 rounded-lg">
           {actionableInsights[0] && (
             <InsightCard
               insight={actionableInsights[0]}
@@ -123,7 +123,7 @@ export default function DashboardPage() {
       )}
 
       {/* Charts Row 1: Leads & Lead Status */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 bg-white rounded-lg">
         <div className="lg:col-span-2">
           <LeadsByBranchChart data={leadsByBranch} />
         </div>
@@ -133,22 +133,25 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts Row 2: Revenue */}
-      <div>
-        <RevenueByBranchChart data={revenueByBranch} />
-      </div>
-
-      {/* Charts Row 3: Agent Performance & Tables */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="lg:col-span-2">
-          <AgentPerformanceChart data={agentPerformance} />
+      <div className='grid grid-cols-7 gap-4 bg-white rounded-lg p-2'>
+        <div className='col-span-5'>
+         <RevenueByBranchChart data={revenueByBranch} />
+        </div>
+        <div className='col-span-2'> 
+          <BranchAgentRankingTable data={branchAgentRanking} limit={6} />
         </div>
       </div>
 
-      {/* Tables Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <TopPerformingAgentsTable data={topPerformingAgents} limit={6} />
-        <BranchAgentRankingTable data={branchAgentRanking} limit={6} />
+      {/* Charts Row 3: Agent Performance & Tables */}
+      <div className='grid grid-cols-7 gap-4 bg-white rounded-lg p-2'>
+        <div className='col-span-5'>
+          <AgentPerformanceChart data={agentPerformance} />
+        </div>
+        <div className='col-span-2'> 
+          <TopPerformingAgentsTable data={topPerformingAgents} limit={6} />
+        </div>
       </div>
+
     </div>
   );
 }
