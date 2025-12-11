@@ -49,7 +49,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({ items }) => {
             onClick={item.onClick}
             className={cn(
               "flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
-              "relative group",
+              "relative group bg-transparent focus:outline-none border-none",
               item.isActive 
                 ? "bg-slate-100 text-slate-900 font-semibold" 
                 : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
