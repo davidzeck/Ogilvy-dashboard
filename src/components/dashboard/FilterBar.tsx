@@ -2,12 +2,8 @@ import { useState, useEffect } from 'react';
 import { Calendar, ChevronDown } from 'lucide-react';
 import { useFiltersStore } from '@/stores/filters.store';
 import { useDashboard } from '@/hooks/useDashboard';
+import { getFilterOptions, type FilterOption, type FilterOptions } from '@/services/filters.service';
 import { cn } from '@/lib/utils';
-
-interface FilterOption {
-  value: string;
-  label: string;
-}
 
 const dateRangeOptions: FilterOption[] = [
   { value: 'last7days', label: 'Last 7 Days' },
@@ -31,49 +27,34 @@ export const FilterBar = () => {
     campaign: campaign || '',
   });
 
-  // Fetch filter options from data (we'll implement this later with an API endpoint)
-  const [filterOptions, setFilterOptions] = useState<{
-    branches: FilterOption[];
-    agents: FilterOption[];
-    products: FilterOption[];
-    segments: FilterOption[];
-    campaigns: FilterOption[];
-  }>({
-    branches: [
-      { value: '', label: 'All Branches' },
-      { value: 'Nairobi', label: 'Nairobi' },
-      { value: 'Mombasa', label: 'Mombasa' },
-      { value: 'Kisumu', label: 'Kisumu' },
-      { value: 'Eldoret', label: 'Eldoret' },
-    ],
-    agents: [
-      { value: '', label: 'All Agents' },
-      { value: 'Jane Doe', label: 'Jane Doe' },
-      { value: 'John Smith', label: 'John Smith' },
-      { value: 'Alice Johnson', label: 'Alice Johnson' },
-      { value: 'Bob Williams', label: 'Bob Williams' },
-      { value: 'Charlie Brown', label: 'Charlie Brown' },
-    ],
-    products: [
-      { value: '', label: 'All Products' },
-      { value: 'Insurance', label: 'Insurance' },
-      { value: 'Loan', label: 'Loan' },
-      { value: 'Investment', label: 'Investment' },
-      { value: 'Savings', label: 'Savings' },
-    ],
-    segments: [
-      { value: '', label: 'All Segments' },
-      { value: 'Premium', label: 'Premium' },
-      { value: 'Standard', label: 'Standard' },
-      { value: 'Basic', label: 'Basic' },
-    ],
-    campaigns: [
-      { value: '', label: 'All Campaigns' },
-      { value: 'Summer Campaign', label: 'Summer Campaign' },
-      { value: 'Winter Campaign', label: 'Winter Campaign' },
-      { value: 'Spring Campaign', label: 'Spring Campaign' },
-    ],
+  // Filter options state
+  const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+    branches: [{ value: '', label: 'All Branches' }],
+    agents: [{ value: '', label: 'All Agents' }],
+    products: [{ value: '', label: 'All Products' }],
+    segments: [{ value: '', label: 'All Segments' }],
+    campaigns: [{ value: '', label: 'All Campaigns' }],
   });
+
+  const [loadingOptions, setLoadingOptions] = useState(true);
+
+  // Fetch filter options from API on mount
+  useEffect(() => {
+    const fetchFilterOptions = async () => {
+      try {
+        setLoadingOptions(true);
+        const options = await getFilterOptions();
+        setFilterOptions(options);
+      } catch (error) {
+        console.error('Failed to fetch filter options:', error);
+        // Keep default empty options on error
+      } finally {
+        setLoadingOptions(false);
+      }
+    };
+
+    fetchFilterOptions();
+  }, []);
 
   const handleLocalChange = (key: string, value: string) => {
     setLocalFilters((prev) => ({ ...prev, [key]: value }));
@@ -92,6 +73,9 @@ export const FilterBar = () => {
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
+        {loadingOptions && (
+          <div className="w-full text-sm text-gray-500 mb-2">Loading filter options...</div>
+        )}
         {/* Date Range Picker */}
         <div className="relative min-w-[180px]">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -124,7 +108,6 @@ export const FilterBar = () => {
           value={localFilters.agent}
           onChange={(value) => handleLocalChange('agent', value)}
           options={filterOptions.agents}
-          placeholder="Agent"
         />
 
         {/* Branch Filter */}
@@ -132,7 +115,6 @@ export const FilterBar = () => {
           value={localFilters.branch}
           onChange={(value) => handleLocalChange('branch', value)}
           options={filterOptions.branches}
-          placeholder="Branch"
         />
 
         {/* Product Filter */}
@@ -140,7 +122,6 @@ export const FilterBar = () => {
           value={localFilters.product}
           onChange={(value) => handleLocalChange('product', value)}
           options={filterOptions.products}
-          placeholder="Product"
         />
 
         {/* Segment Filter */}
@@ -148,7 +129,6 @@ export const FilterBar = () => {
           value={localFilters.segment}
           onChange={(value) => handleLocalChange('segment', value)}
           options={filterOptions.segments}
-          placeholder="Segment"
         />
 
         {/* Campaign Filter */}
@@ -156,7 +136,6 @@ export const FilterBar = () => {
           value={localFilters.campaign}
           onChange={(value) => handleLocalChange('campaign', value)}
           options={filterOptions.campaigns}
-          placeholder="Campaign"
         />
 
         {/* Apply Filter Button */}
@@ -183,10 +162,9 @@ interface FilterSelectProps {
   value: string;
   onChange: (value: string) => void;
   options: FilterOption[];
-  placeholder: string;
 }
 
-const FilterSelect = ({ value, onChange, options, placeholder }: FilterSelectProps) => {
+const FilterSelect = ({ value, onChange, options }: FilterSelectProps) => {
   return (
     <div className="relative min-w-[160px]">
       <select

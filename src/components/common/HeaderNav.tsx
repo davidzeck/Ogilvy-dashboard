@@ -57,16 +57,16 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ items }) => {
  */
 export const defaultHeaderNavItems: HeaderNavItem[] = [
   {
-    label: 'Dashboard',
+    label: 'Lead Management',
     isActive: true,
   },
   {
-    label: 'Leads',
+    label: 'Marketing Automation',
   },
   {
-    label: 'Reports',
+    label: 'Campaigns',
   },
   {
-    label: 'Settings',
+    label: 'Studio',
   },
 ];

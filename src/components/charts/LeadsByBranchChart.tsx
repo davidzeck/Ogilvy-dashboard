@@ -30,6 +30,30 @@ export const LeadsByBranchChart = ({ data }: LeadsByBranchChartProps) => {
 
       <ResponsiveContainer width="100%" height={350}>
         <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <defs>
+            <filter id="shadow-leads" height="200%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+              <feOffset dx="0" dy="2" result="offsetblur" />
+              <feComponentTransfer>
+                <feFuncA type="linear" slope="0.3" />
+              </feComponentTransfer>
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="shadow-conversion" height="200%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+              <feOffset dx="0" dy="2" result="offsetblur" />
+              <feComponentTransfer>
+                <feFuncA type="linear" slope="0.3" />
+              </feComponentTransfer>
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis
             dataKey="period"
@@ -65,20 +89,22 @@ export const LeadsByBranchChart = ({ data }: LeadsByBranchChartProps) => {
             type="monotone"
             dataKey="leads"
             stroke="#3b82f6"
-            strokeWidth={2}
-            dot={{ r: 4, fill: '#3b82f6' }}
+            strokeWidth={3}
+            dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }}
             activeDot={{ r: 6 }}
             name="Leads"
+            filter="url(#shadow-leads)"
           />
           <Line
             yAxisId="right"
             type="monotone"
             dataKey="conversionRate"
             stroke="#06b6d4"
-            strokeWidth={2}
-            dot={{ r: 4, fill: '#06b6d4' }}
+            strokeWidth={3}
+            dot={{ r: 4, fill: '#06b6d4', strokeWidth: 0 }}
             activeDot={{ r: 6 }}
             name="Conversion Rate (%)"
+            filter="url(#shadow-conversion)"
           />
         </LineChart>
       </ResponsiveContainer>

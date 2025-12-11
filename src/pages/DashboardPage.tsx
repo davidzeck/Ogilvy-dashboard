@@ -87,39 +87,14 @@ export default function DashboardPage() {
       </div>
 
       {/* Actionable Insights Cards */}
-      {actionableInsights.length > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 bg-gradient-to-r from-blue-700 to-purple-500 rounded-lg">
-          {actionableInsights[0] && (
-            <InsightCard
-              insight={actionableInsights[0]}
-              ranking={
-                branchRanking
-                  ? {
-                      label: 'Branch Ranking',
-                      position: branchRanking.position,
-                    }
-                  : undefined
-              }
-              variant="blue"
-              index={0}
-            />
-          )}
-          {actionableInsights[1] && (
-            <InsightCard
-              insight={actionableInsights[1]}
-              ranking={
-                countryRanking
-                  ? {
-                      label: 'Country Ranking',
-                      position: countryRanking.position,
-                    }
-                  : undefined
-              }
-              variant="purple"
-              index={1}
-            />
-          )}
-        </div>
+      {actionableInsights.length >= 2 && branchRanking && countryRanking && (
+        <InsightCard
+          insights={actionableInsights}
+          ranking={{
+            branch: branchRanking.position,
+            country: countryRanking.position,
+          }}
+        />
       )}
 
       {/* Charts Row 1: Leads & Lead Status */}
