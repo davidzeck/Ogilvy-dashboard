@@ -29,7 +29,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({ items }) => {
           whileTap={{ scale: 0.95 }}
           onClick={item.onClick}
           className={cn(
-            "relative px-4 py-2 text-sm font-medium rounded-md transition-all duration-200",
+            "relative px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 bg-transparent border-none focus-none",
             item.isActive
               ? "text-slate-900 font-semibold"
               : "text-slate-600 hover:text-slate-900"

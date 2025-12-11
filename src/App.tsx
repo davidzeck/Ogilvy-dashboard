@@ -1,7 +1,5 @@
-import React from 'react';
-import { DashboardLayout } from './layout/DashboardLayout';
-import { DashboardPage } from './pages/DashboardPage';
-import './App.css';
+import { DashboardLayout } from '@/layout/DashboardLayout';
+import DashboardPage from '@/pages/DashboardPage';
 
 function App() {
   return (

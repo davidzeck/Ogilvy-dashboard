@@ -1,0 +1,120 @@
+/**
+ * Dashboard Types
+ * Type definitions matching the backend API response
+ */
+
+export interface KPI {
+  id: string;
+  label: string;
+  value: number | string;
+  change?: number;
+  changeType?: 'increase' | 'decrease' | 'neutral';
+  changePeriod?: string;
+  meta?: Record<string, any>;
+}
+
+export interface LeadStatus {
+  status: string;
+  count: number;
+  percentage?: number;
+}
+
+export interface LeadsByBranchData {
+  period: string;
+  leads: number;
+  conversionRate: number;
+}
+
+export interface RevenueByBranchData {
+  period: string;
+  revenue: number;
+  target?: number;
+}
+
+export interface AgentPerformance {
+  agentId: string;
+  agentName: string;
+  leads: number;
+  revenue: number;
+  conversionRate: number;
+  turnAroundTime: number; // in days
+}
+
+export interface TopPerformingAgent {
+  id: string;
+  name: string;
+  turnAroundTime: number; // in days
+  conversionRate: number;
+  branch: string;
+}
+
+export interface BranchAgentRanking {
+  agentName: string;
+  target: number;
+  realised: number;
+  currency?: string;
+}
+
+export interface ActionableInsight {
+  id: string;
+  title: string;
+  description: string;
+  improvement: number;
+  metric: 'turnAroundTime' | 'conversionRate' | 'revenue' | 'leads';
+  priority?: 'high' | 'medium' | 'low';
+}
+
+export interface BranchRanking {
+  position: number;
+  totalBranches: number;
+  branch?: string;
+  score?: number;
+}
+
+export interface CountryRanking {
+  position: number;
+  totalCountries: number;
+  country?: string;
+  score?: number;
+}
+
+export interface CountryRankingTableRow {
+  rank: number;
+  country: string;
+  branches: number;
+  totalLeads: number;
+  totalRevenue: number;
+  conversionRate: number;
+}
+
+export interface DashboardFilters {
+  dateRange?: string;
+  branch?: string;
+  agent?: string;
+  product?: string;
+  segment?: string;
+  campaign?: string;
+}
+
+export interface DashboardData {
+  kpis: KPI[];
+  leadsByBranch: LeadsByBranchData[];
+  revenueByBranch: RevenueByBranchData[];
+  leadStatus: LeadStatus[];
+  agentPerformance: AgentPerformance[];
+  topPerformingAgents: TopPerformingAgent[];
+  branchAgentRanking: BranchAgentRanking[];
+  branchRanking?: BranchRanking;
+  countryRanking?: CountryRanking;
+  countryRankingTable?: CountryRankingTableRow[];
+  actionableInsights?: ActionableInsight[];
+  filters: DashboardFilters;
+}
+
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  message: string;
+  timestamp: string;
+  error?: string;
+}
