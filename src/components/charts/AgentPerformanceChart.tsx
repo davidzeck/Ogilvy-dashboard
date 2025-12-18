@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import type { AgentPerformance } from '@/types/dashboard';
+import { DownloadButton } from '@/components/common/DownloadButton';
+import { downloadAsJPEG, downloadAsExcel, formatAgentPerformanceForExcel } from '@/utils/downloadHelpers';
 
 interface AgentPerformanceChartProps {
   data: AgentPerformance[];
@@ -10,18 +12,34 @@ export const AgentPerformanceChart = ({ data }: AgentPerformanceChartProps) => {
   // Limit to top 12 agents for better visualization
   const chartData = data.slice(0, 12);
 
+  const handleDownloadJPEG = () => {
+    downloadAsJPEG('agent-performance-chart', 'agent-performance');
+  };
+
+  const handleDownloadXLS = () => {
+    const excelData = formatAgentPerformanceForExcel(chartData);
+    downloadAsExcel(excelData, 'agent-performance', 'Agent Performance');
+  };
+
   return (
     <motion.div
+      id="agent-performance-chart"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.2 }}
-      className=" p-6"
+      className="p-6"
     >
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">Agent Performance</h3>
-        <div className="text-sm text-gray-600">
-          Showing top {chartData.length} agents by revenue
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-gray-900">Agent Performance</h3>
+          <div className="text-sm text-gray-600 mt-1">
+            Showing top {chartData.length} agents by revenue
+          </div>
         </div>
+        <DownloadButton
+          onDownloadJPEG={handleDownloadJPEG}
+          onDownloadXLS={handleDownloadXLS}
+        />
       </div>
 
       <ResponsiveContainer width="100%" height={350}>
